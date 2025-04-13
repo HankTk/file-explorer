@@ -1,37 +1,131 @@
 {
-  "name": "file-explorer",
-  "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
-  "private": true,
-  "dependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/compiler": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@angular/forms": "^19.2.0",
-    "@angular/platform-browser": "^19.2.0",
-    "@angular/platform-browser-dynamic": "^19.2.0",
-    "@angular/router": "^19.2.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.0",
-    "@angular/cli": "^19.2.0",
-    "@angular/compiler-cli": "^19.2.0",
-    "@types/jasmine": "~5.1.0",
-    "jasmine-core": "~5.6.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.2"
-  }
+    "name": "file-explorer",
+    "version": "0.0.0",
+    "description": "A file explorer application built with Angular and Electron",
+    "author": "Hidenori Takaku",
+    "main": "electron/main/main.js",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build",
+        "watch": "ng build --watch --configuration development",
+        "test": "ng test",
+        "electron:serve": "cross-env NODE_ENV=development npm run clean && concurrently \"ng serve\" \"wait-on http://localhost:4200 && cross-env NODE_ENV=development electron .\"",
+        "electron:build": "npm run clean && ng build --configuration production --base-href ./ && electron-builder build --mac --arm64 --config.mac.identity=null",
+        "generate-icons": "node scripts/generate-icons.js",
+        "clean": "rm -rf dist release",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,html,scss}\""
+    },
+    "private": true,
+    "dependencies": {
+        "@angular/animations": "^19.2.0",
+        "@angular/cdk": "^19.2.0",
+        "@angular/common": "^19.2.0",
+        "@angular/compiler": "^19.2.0",
+        "@angular/core": "^19.2.0",
+        "@angular/forms": "^19.2.0",
+        "@angular/material": "^19.2.0",
+        "@angular/platform-browser": "^19.2.0",
+        "@angular/platform-browser-dynamic": "^19.2.0",
+        "@angular/router": "^19.2.0",
+        "@fortawesome/fontawesome-free": "^6.5.1",
+        "@ngx-translate/core": "^16.0.4",
+        "@ngx-translate/http-loader": "^16.0.1",
+        "rxjs": "~7.8.1",
+        "sharp": "^0.33.5",
+        "tslib": "^2.6.2",
+        "zone.js": "~0.15.0"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "^19.2.0",
+        "@angular-eslint/eslint-plugin": "^19.3.0",
+        "@angular-eslint/eslint-plugin-template": "^19.3.0",
+        "@angular-eslint/template-parser": "^19.3.0",
+        "@angular/cli": "^19.2.0",
+        "@angular/compiler-cli": "^19.2.0",
+        "@eslint/js": "^9.24.0",
+        "@types/jasmine": "~5.1.4",
+        "@types/node": "^22.14.0",
+        "@typescript-eslint/eslint-plugin": "^8.29.1",
+        "@typescript-eslint/parser": "^8.29.1",
+        "concurrently": "^8.2.2",
+        "cross-env": "^7.0.3",
+        "electron": "^28.3.3",
+        "electron-builder": "^24.13.3",
+        "eslint-config-prettier": "^10.1.2",
+        "eslint-plugin-prettier": "^5.2.6",
+        "jasmine-core": "~5.1.1",
+        "karma": "~6.4.2",
+        "karma-chrome-launcher": "~3.2.0",
+        "karma-coverage": "~2.2.1",
+        "karma-jasmine": "~5.1.0",
+        "karma-jasmine-html-reporter": "~2.1.0",
+        "prettier": "^3.5.3",
+        "prettier-plugin-organize-imports": "^4.1.0",
+        "typescript": "~5.5.0",
+        "typescript-eslint": "^8.29.1",
+        "wait-on": "^7.2.0"
+    },
+    "build": {
+        "appId": "com.file-explorer.app",
+        "productName": "File Explorer",
+        "directories": {
+            "output": "release"
+        },
+        "files": [
+            "dist/**/*",
+            "electron/**/*"
+        ],
+        "extraResources": [
+            {
+                "from": "dist",
+                "to": "dist"
+            }
+        ],
+        "mac": {
+            "target": [
+                "dmg",
+                "zip"
+            ],
+            "category": "public.app-category.utilities",
+            "identity": null,
+            "icon": "electron/assets/icon.icns"
+        },
+        "asar": false
+    },
+    "prettier": {
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "printWidth": 100,
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 4,
+        "trailingComma": "es5",
+        "useTabs": false,
+        "bracketSameLine": false,
+        "arrowParens": "always",
+        "braceStyle": "allman",
+        "endOfLine": "lf",
+        "overrides": [
+            {
+                "files": "*.{ts,tsx}",
+                "options": {
+                    "bracketSpacing": true,
+                    "jsxBracketSameLine": false,
+                    "printWidth": 100,
+                    "semi": true,
+                    "singleQuote": true,
+                    "tabWidth": 4,
+                    "trailingComma": "es5",
+                    "useTabs": false,
+                    "bracketSameLine": false,
+                    "arrowParens": "always",
+                    "braceStyle": "allman"
+                }
+            }
+        ]
+    }
 }

@@ -1,0 +1,33 @@
+.language-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+
+    button {
+        width: 100%;
+        justify-content: flex-start;
+        text-align: left;
+        color: var(--mat-text-color);
+        background-color: var(--mat-surface-container-color);
+        border: 1px solid var(--mat-divider-color);
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        padding: 8px 16px;
+
+        &:hover {
+            background-color: var(--mat-hover-color);
+        }
+
+        &.active {
+            background-color: var(--mat-primary-color);
+            color: var(--mat-primary-contrast-color);
+            border-color: var(--mat-primary-color);
+        }
+
+        .flag {
+            margin-right: 16px;
+            font-size: 1.2em;
+        }
+    }
+}

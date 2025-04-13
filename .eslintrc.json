@@ -1,0 +1,71 @@
+{
+    "root": true,
+    "ignorePatterns": ["projects/**/*", "scripts/**/*"],
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "parserOptions": {
+                "project": ["tsconfig.json", "e2e/tsconfig.json"],
+                "createDefaultProgram": true
+            },
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:@angular-eslint/template/process-inline-templates"
+            ],
+            "rules": {
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "app",
+                        "style": "camelCase"
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "app",
+                        "style": "kebab-case"
+                    }
+                ],
+                "@angular-eslint/no-empty-lifecycle-method": "warn",
+                "@angular-eslint/no-output-native": "warn",
+                "@angular-eslint/use-lifecycle-interface": "warn",
+                "brace-style": ["error", "allman", { "allowSingleLine": false }],
+                "curly": ["error", "all"],
+                "nonblock-statement-body-position": ["error", "below"],
+                "indent": [
+                    "error",
+                    4,
+                    {
+                        "SwitchCase": 1,
+                        "FunctionDeclaration": { "body": 1, "parameters": 1 },
+                        "FunctionExpression": { "body": 1, "parameters": 1 },
+                        "CallExpression": { "arguments": 1 },
+                        "ArrayExpression": 1,
+                        "ObjectExpression": 1,
+                        "ImportDeclaration": 1,
+                        "flatTernaryExpressions": false,
+                        "offsetTernaryExpressions": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["*.html"],
+            "extends": ["plugin:@angular-eslint/template/recommended"],
+            "rules": {}
+        },
+        {
+            "files": ["electron/**/*.js"],
+            "env": {
+                "node": true,
+                "es6": true
+            },
+            "parserOptions": {
+                "ecmaVersion": 2020
+            }
+        }
+    ]
+}

@@ -1,0 +1,237 @@
+.list-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 8px 8px 8px !important;
+}
+
+.file-table {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+
+    .table-header {
+        display: flex;
+        background-color: var(--background-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 8px;
+        font-weight: 500;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        filter: brightness(0.9);
+
+        .header-cell {
+            padding: 8px;
+            text-align: left;
+            color: var(--mat-table-header-text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            user-select: none;
+
+            &.sorted {
+                /*
+        background-color: var(--mat-table-header-sorted-background-color, rgba(0, 0, 0, 0.04));
+        */
+                background-color: var(--background-color);
+
+                mat-icon {
+                    opacity: 1;
+                    font-size: 18px;
+                    width: 18px;
+                    height: 18px;
+                    margin-left: 4px;
+                }
+            }
+
+            &:hover {
+                background-color: var(
+                    --mat-table-header-hover-background-color,
+                    rgba(0, 0, 0, 0.08)
+                );
+            }
+
+            .sort-icon {
+                font-size: 18px;
+                width: 18px;
+                height: 18px;
+                color: var(--mat-icon-color);
+            }
+
+            &.name {
+                flex: 3;
+            }
+
+            &.type {
+                flex: 1;
+            }
+
+            &.date {
+                flex: 1;
+            }
+
+            &.size {
+                flex: 1;
+                text-align: right;
+            }
+        }
+    }
+
+    .table-body {
+        flex: 1;
+        overflow-y: auto;
+        max-height: calc(100vh - 200px);
+
+        .table-row {
+            display: flex;
+            height: 42px;
+            padding: 8px;
+            border-bottom: 1px solid var(--mat-divider-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background-color: var(--hover-color);
+                cursor: pointer;
+            }
+
+            .table-cell {
+                padding: 8px;
+                display: flex;
+                align-items: center;
+
+                &.name {
+                    flex: 3;
+                    gap: 8px;
+                    min-width: 0;
+                    max-width: 100%;
+
+                    .file-icon {
+                        flex-shrink: 0;
+
+                        &.folder {
+                            color: #4a90e2;
+                        }
+                        &.image {
+                            color: #ff6b6b;
+                        }
+                        &.document {
+                            color: #4a90e2;
+                        }
+                        &.video {
+                            color: #ff6b6b;
+                        }
+                        &.audio {
+                            color: #ff6b6b;
+                        }
+                        &.archive {
+                            color: #ffb340;
+                        }
+                        &.code {
+                            color: #4a90e2;
+                        }
+                        &.pdf {
+                            color: #ff6b6b;
+                        }
+                        &.spreadsheet {
+                            color: #4a90e2;
+                        }
+                        &.presentation {
+                            color: #4a90e2;
+                        }
+                        &.database {
+                            color: #4a90e2;
+                        }
+                        &.font {
+                            color: #4a90e2;
+                        }
+                        &.executable {
+                            color: #4a90e2;
+                        }
+                        &.default {
+                            color: #8e8e93;
+                        }
+                    }
+
+                    .item-name-container {
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                        min-width: 0;
+                        overflow: hidden;
+
+                        .item-name {
+                            font-weight: 500;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .item-path {
+                            font-size: 0.8em;
+                            color: var(--mat-secondary-text-color);
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                }
+
+                &.type {
+                    flex: 1;
+                }
+
+                &.date {
+                    flex: 1;
+                }
+
+                &.size {
+                    flex: 1;
+                    justify-content: flex-end;
+                }
+            }
+        }
+    }
+}
+
+.custom-context-menu {
+    position: fixed;
+    transform: translateY(-100%);
+}
+
+::ng-deep .mat-menu-panel {
+    min-width: 200px !important;
+    max-width: 280px !important;
+    overflow: hidden;
+
+    .mat-menu-content {
+        padding: 0;
+    }
+
+    .mat-menu-item {
+        height: 40px;
+        line-height: 40px;
+
+        mat-icon {
+            margin-right: 8px;
+        }
+
+        .mat-menu-item-submenu-trigger::after {
+            display: none;
+        }
+
+        &::after {
+            display: none !important;
+        }
+    }
+}

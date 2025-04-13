@@ -1,0 +1,75 @@
+<div class="toolbar">
+    <div class="left-buttons">
+        <button
+            mat-icon-button
+            (click)="goBack.emit()"
+            [disabled]="!canGoBack"
+            matTooltip="{{ 'fileExplorer.back' | translate }}">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button
+            mat-icon-button
+            (click)="goUp.emit()"
+            [disabled]="!canGoUp"
+            matTooltip="{{ 'fileExplorer.up' | translate }}">
+            <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button
+            mat-icon-button
+            (click)="goHome.emit()"
+            matTooltip="{{ 'fileExplorer.home' | translate }}">
+            <mat-icon>home</mat-icon>
+        </button>
+    </div>
+    <div class="path-input">
+        <mat-form-field appearance="outline">
+            <mat-label>{{ 'fileExplorer.path' | translate }}</mat-label>
+            <mat-icon
+                matPrefix
+                (click)="selectDirectory.emit()"
+                class="select-directory-icon"
+                matTooltip="{{ 'fileExplorer.selectDirectory' | translate }}"
+                >folder_open</mat-icon>
+            <input
+                matInput
+                [(ngModel)]="currentPath"
+                (ngModelChange)="pathChanged.emit($event)"
+                [placeholder]="'fileExplorer.pathPlaceholder' | translate"/>
+        </mat-form-field>
+    </div>
+    <div class="search-input">
+        <mat-form-field appearance="outline" class="search-field">
+            <mat-label>{{ 'fileExplorer.search' | translate }}</mat-label>
+            <mat-icon matPrefix>search</mat-icon>
+            <input
+                matInput
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="searchQueryChanged.emit($event)"
+                (keyup.enter)="onSearchEnter()"
+                [placeholder]="'fileExplorer.searchPlaceholder' | translate"/>
+            <button
+                mat-icon-button
+                matSuffix
+                (click)="onSearchEnter()"
+                [disabled]="!searchQuery.trim()"
+                matTooltip="{{ 'fileExplorer.search' | translate }}">
+                <mat-icon *ngIf="!isSearching">keyboard_return</mat-icon>
+                <mat-spinner *ngIf="isSearching" diameter="24"></mat-spinner>
+            </button>
+        </mat-form-field>
+    </div>
+    <div class="right-buttons">
+        <button
+            mat-icon-button
+            (click)="toggleDrawer.emit()"
+            matTooltip="{{ 'fileExplorer.settings' | translate }}"
+            class="settings-button">
+            <mat-icon>settings</mat-icon>
+        </button>
+    </div>
+</div>
+<!--
+<div class="search-loading-overlay" *ngIf="isSearching">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+-->

@@ -1,0 +1,37 @@
+<div class="tile-item" [class.selected]="isSelected" draggable="true">
+    <div class="tile-icon">
+        <ng-container
+            *ngIf="
+                fileExplorerService.isImageFile(item.name) &&
+                    (!item.size || !fileExplorerService.isImageTooLarge(item.size));
+                else defaultIcon
+            ">
+            <div class="image-container">
+                <img
+                    [src]="imageUrl"
+                    class="thumbnail"
+                    (load)="onImageLoaded()"
+                    (error)="onImageError($event)"
+                    loading="lazy"
+                    [attr.data-path]="item.path"
+                    [class.loaded]="isImageLoaded"/>
+                <div class="loading-mask" *ngIf="isImageLoading">
+                    <mat-spinner diameter="24"></mat-spinner>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #defaultIcon>
+            <mat-icon [class]="item.isDirectory ? 'folder' : getFileIcon().class" class="file-icon">
+                {{ item.isDirectory ? 'folder' : getFileIcon().name }}
+            </mat-icon>
+        </ng-template>
+    </div>
+    <div class="tile-content">
+        <div class="tile-name">{{ item.name }}</div>
+        <div class="tile-info">
+            <span class="tile-size" *ngIf="!item.isDirectory && item.size !== null">{{
+                formatFileSize(item.size)
+            }}</span>
+        </div>
+    </div>
+</div>

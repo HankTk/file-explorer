@@ -1,0 +1,115 @@
+<div class="carousel-view" (contextmenu)="onEmptyAreaContextMenu($event)">
+    <div class="carousel-item-view">
+        <div *ngIf="loading" class="loading-spinner">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <div *ngIf="error" class="error-message">
+            {{ error }}
+        </div>
+        <div *ngIf="!selectedItem" class="no-selection">
+            <p>Select an item to view its details</p>
+        </div>
+        <div *ngIf="selectedItem">
+            <div class="item-details">
+                <div *ngIf="selectedItem.isDirectory" class="directory-preview">
+                    <mat-icon class="large-icon">folder</mat-icon>
+                    <h2>{{ selectedItem.name }}</h2>
+                </div>
+                <!--
+                <div *ngIf="!selectedItem.isDirectory" class="file-details">
+                <h2>{{ selectedItem.name }}</h2>
+                <p>Type: File</p>
+                <p>Path: {{ selectedItem.path }}</p>
+                </div>
+                -->
+            </div>
+            <div *ngIf="!selectedItem.isDirectory" class="file-preview">
+                <div *ngIf="showImagePreview" class="image-preview">
+                    <img
+                        *ngIf="selectedItem && getSelectedImageData(selectedItem).url"
+                        (click)="onSelectedItemClick(selectedItem)"
+                        [src]="getSelectedImageData(selectedItem).url"
+                        [alt]="selectedItem.name"
+                        (error)="handleImageError(selectedItem.path)"
+                        (load)="onImageLoad(selectedItem.path)"
+                        class="preview-image"
+                        [style.display]="
+                            getSelectedImageData(selectedItem).loaded ? 'block' : 'none'
+                        "
+                    />
+                    <div
+                        *ngIf="selectedItem && !getSelectedImageData(selectedItem).loaded"
+                        class="loading-overlay">
+                        <mat-progress-spinner
+                            mode="indeterminate"
+                            diameter="48">
+                        </mat-progress-spinner>
+                    </div>
+                </div>
+                <div *ngIf="!showImagePreview" class="non-image-preview">
+                    <mat-icon class="large-icon">insert_drive_file</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!loading && !error" class="carousel-container finder-style">
+            <cdk-virtual-scroll-viewport
+                #viewport
+                itemSize="120"
+                orientation="horizontal"
+                class="virtual-scroll-viewport">
+                <div
+                    *cdkVirtualFor="let item of items"
+                    class="carousel-item"
+                    [tabindex]="selectedItem === item ? 0 : -1"
+                    (click)="onItemClick(item)"
+                    (dblclick)="onItemClick(item)"
+                    (contextmenu)="onContextMenu($event, item)"
+                    draggable="true"
+                    (dragstart)="onDragStart($event, item)">
+                    <div class="item-content">
+                        <div
+                            *ngIf="fileExplorerService.isImageFile(item.name)"
+                            class="image-preview-container">
+                            <img
+                                *ngIf="getImageData(item).url"
+                                [src]="getImageData(item).url"
+                                [alt]="item.name"
+                                (error)="handleImageError(item.path)"
+                                (load)="onImageLoad(item.path)"
+                                class="preview-image"
+                                [style.display]="getImageData(item).loaded ? 'block' : 'none'"
+                            />
+                            <div *ngIf="!getImageData(item).loaded" class="loading-overlay">
+                                <mat-progress-spinner
+                                    mode="indeterminate"
+                                    diameter="24">
+                                </mat-progress-spinner>
+                            </div>
+                        </div>
+                        <mat-icon
+                            *ngIf="!fileExplorerService.isImageFile(item.name)"
+                            [ngClass]="[
+                                'file-icon',
+                                item.isDirectory
+                                    ? 'folder'
+                                    : fileExplorerService.getFileIcon(item.name).class,
+                            ]"
+                            style="font-size: 36px; width: 36px; height: 36px">
+                            {{
+                                item.isDirectory
+                                    ? 'folder'
+                                    : fileExplorerService.getFileIcon(item.name).name
+                            }}
+                        </mat-icon>
+                        <br />
+                        <div class="item-name">
+                            {{ item.name }}
+                        </div>
+                    </div>
+                </div>
+            </cdk-virtual-scroll-viewport>
+        </div>
+    </div>
+</div>
+
+<app-context-menu [currentDirectory]="currentDirectory" (paste)="onPaste()"></app-context-menu>

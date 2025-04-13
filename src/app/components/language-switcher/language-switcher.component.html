@@ -1,0 +1,13 @@
+<div class="language-options">
+    <mat-form-field>
+        <mat-select [value]="currentLang" (selectionChange)="switchLanguage($event.value)">
+            @for (option of languageOptions; track option.code) {
+                <mat-option [value]="option.code">
+                    <span class="flag">{{ option.flag }}</span>
+                    &nbsp;
+                    <span>{{ option.name }}</span>
+                </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+</div>

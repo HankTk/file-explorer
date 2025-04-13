@@ -1,0 +1,8 @@
+<div class="theme-options">
+    <mat-slide-toggle
+        [checked]="isDarkMode"
+        (change)="onThemeChange($event.checked)"
+        [attr.aria-label]="'fileExplorer.themeVariant' | translate">
+        {{ (isDarkMode ? 'fileExplorer.themeVariantDark' : 'fileExplorer.themeVariantLight') | translate }}
+    </mat-slide-toggle>
+</div>

@@ -1,0 +1,54 @@
+.device-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 8px;
+
+    .device-header {
+        padding: 16px;
+        border-bottom: 1px solid var(--border-color);
+        background-color: var(--background-color);
+        position: sticky;
+        top: 0;
+        z-index: 1;
+
+        h3 {
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+    }
+
+    .device-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px;
+
+        mat-nav-list {
+            padding: 0;
+        }
+
+        mat-list-item {
+            height: 36px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--hover-color);
+            }
+
+            mat-icon {
+                margin-right: 8px;
+                color: var(--primary-color);
+            }
+
+            span {
+                color: var(--text-color);
+            }
+        }
+    }
+}

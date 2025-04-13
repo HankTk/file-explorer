@@ -1,0 +1,31 @@
+{
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "printWidth": 100,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "es5",
+    "useTabs": false,
+    "bracketSameLine": true,
+    "arrowParens": "always",
+    "braceStyle": "allman",
+    "htmlWhitespaceSensitivity": "ignore",
+    "overrides": [
+        {
+            "files": "*.html",
+            "options": {
+                "bracketSameLine": true,
+                "htmlWhitespaceSensitivity": "ignore",
+                "printWidth": 120,
+                "proseWrap": "preserve",
+                "singleQuote": true,
+                "tabWidth": 2,
+                "useTabs": false,
+                "endOfLine": "lf",
+                "jsxBracketSameLine": true,
+                "bracketSpacing": true
+            }
+        }
+    ]
+}

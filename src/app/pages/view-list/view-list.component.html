@@ -1,0 +1,90 @@
+<div class="list-view" (contextmenu)="onEmptyAreaContextMenu($event)">
+  <div class="file-table">
+    <div class="table-header">
+      <div
+        class="header-cell name"
+        (click)="onSort('name')"
+        [class.sorted]="sortField === 'name'">
+        {{ 'fileExplorer.name' | translate }}
+        <mat-icon *ngIf="sortField === 'name'">{{
+          sortOrder === 'asc' ? 'arrow_upward' : 'arrow_downward'
+        }}</mat-icon>
+      </div>
+      <div
+        class="header-cell type"
+        (click)="onSort('type')"
+        [class.sorted]="sortField === 'type'">
+        {{ 'fileExplorer.type' | translate }}
+        <mat-icon *ngIf="sortField === 'type'">{{
+          sortOrder === 'asc' ? 'arrow_upward' : 'arrow_downward'
+        }}</mat-icon>
+      </div>
+      <div
+        class="header-cell date"
+        (click)="onSort('modified')"
+        [class.sorted]="sortField === 'modified'">
+        {{ 'fileExplorer.modifiedDate' | translate }}
+        <mat-icon *ngIf="sortField === 'modified'">{{
+          sortOrder === 'asc' ? 'arrow_upward' : 'arrow_downward'
+        }}</mat-icon>
+      </div>
+      <div
+        class="header-cell size"
+        (click)="onSort('size')"
+        [class.sorted]="sortField === 'size'">
+        {{ 'fileExplorer.size' | translate }}
+        <mat-icon *ngIf="sortField === 'size'">{{
+          sortOrder === 'asc' ? 'arrow_upward' : 'arrow_downward'
+        }}</mat-icon>
+      </div>
+    </div>
+    <div class="table-body">
+      <div
+        class="table-row"
+        *ngFor="let item of items"
+        (click)="onItemClick(item)"
+        (contextmenu)="onContextMenu($event, item)"
+        draggable="true"
+        (dragstart)="onDragStart($event, item)">
+        <div class="table-cell name">
+          <mat-icon
+            [class]="
+              item.isDirectory
+                ? 'folder'
+                : fileExplorerService.getFileIcon(item.name).class
+            "
+            class="file-icon">
+            {{
+              item.isDirectory
+                ? 'folder'
+                : fileExplorerService.getFileIcon(item.name).name
+            }}
+          </mat-icon>
+          <div class="item-name-container">
+            <span class="item-name" [matTooltip]="item.name" matTooltipPosition="above">{{ item.name }}</span>
+            <span class="item-path" *ngIf="isSearching">{{ item.path }}</span>
+          </div>
+        </div>
+        <div class="table-cell type">{{ item.type }}</div>
+        <div class="table-cell date">{{ item.modified | date: 'yyyy/MM/dd hh:mm:ss' }}</div>
+        <div class="table-cell size">
+          {{
+            !item.isDirectory && item.size !== null
+              ? fileExplorerService.formatFileSize(item.size)
+              : '-'
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
+  <div class="loading-overlay" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  -->  
+  <div class="error-message" *ngIf="error">
+    {{ error | translate }}
+  </div>
+</div>
+
+<app-context-menu [currentDirectory]="currentDirectory"></app-context-menu>

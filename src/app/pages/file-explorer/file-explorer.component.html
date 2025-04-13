@@ -1,0 +1,143 @@
+<div class="file-explorer">
+    <mat-drawer-container class="drawer-container">
+        <mat-drawer #drawer [mode]="'side'" [opened]="isDrawerOpen" [position]="'end'">
+            <app-settings [isDrawerOpen]="isDrawerOpen" (toggleDrawer)="toggleDrawer()">
+            </app-settings>
+        </mat-drawer>
+        <mat-drawer-content>
+            <app-toolbar
+                [currentPath]="currentPath"
+                [searchQuery]="searchQuery"
+                [canGoBack]="canGoBack()"
+                [canGoUp]="canGoUp()"
+                [isDrawerOpen]="isDrawerOpen"
+                (goBack)="goBack()"
+                (goUp)="goUp()"
+                (goHome)="goHome()"
+                (selectDirectory)="onSelectDirectory()"
+                (navigateToPath)="navigateToPath($event)"
+                (searchTriggered)="onSearch()"
+                (toggleDrawer)="toggleDrawer()"
+                (pathChanged)="currentPath = $event"
+                (searchQueryChanged)="searchQuery = $event"
+            >
+            </app-toolbar>
+
+            <div class="main-content">
+                <div class="resizable-container">
+                    <div class="resize-handle" (mousedown)="startResize($event)"></div>
+                    <app-favorite-list
+                        [favorites]="favorites"
+                        (favoriteSelect)="onFavoriteSelect($event)"
+                        (addToFavorites)="addToFavorites($event)"
+                        (removeFromFavorites)="removeFromFavorites($event)"
+                    >
+                    </app-favorite-list>
+                    <div
+                        class="favorite-device-resize-handle"
+                        (mousedown)="startFavoriteResize($event)"
+                    ></div>
+                    <app-device-list [devices]="devices" (deviceSelect)="selectDevice($event)">
+                    </app-device-list>
+                </div>
+
+                <div class="view-container">
+                    <div class="view-controls right-aligned">
+                        <button
+                            mat-icon-button
+                            (click)="viewMode = 'list'"
+                            matTooltip="{{ 'fileExplorer.switchToListView' | translate }}"
+                        >
+                            <mat-icon>view_list</mat-icon>
+                        </button>
+                        <button
+                            mat-icon-button
+                            (click)="viewMode = 'tile'"
+                            matTooltip="{{ 'fileExplorer.switchToTileView' | translate }}"
+                        >
+                            <mat-icon>grid_view</mat-icon>
+                        </button>
+                        <button
+                            mat-icon-button
+                            (click)="viewMode = 'column'"
+                            matTooltip="{{ 'fileExplorer.switchToColumnView' | translate }}"
+                        >
+                            <mat-icon>view_column</mat-icon>
+                        </button>
+                        <button
+                            mat-icon-button
+                            (click)="viewMode = 'carousel'"
+                            matTooltip="{{ 'fileExplorer.switchToCarouselView' | translate }}"
+                        >
+                            <mat-icon>view_carousel</mat-icon>
+                        </button>
+                    </div>
+
+                    <app-list-view
+                        *ngIf="viewMode === 'list'"
+                        [currentDirectory]="currentPath"
+                        [items]="items"
+                        [loading]="loading"
+                        [error]="error"
+                        [isSearching]="isSearching"
+                        (itemClick)="onItemClick($event)"
+                        (favoriteAdd)="addToFavorites($event)"
+                        (itemCopy)="onCopyItem($event)"
+                        (itemPaste)="onPasteItem($event)"
+                        (itemRename)="onRenameItem($event)"
+                        (itemDelete)="onDeleteItem($event)"
+                    >
+                    </app-list-view>
+
+                    <app-tile-view
+                        *ngIf="viewMode === 'tile'"
+                        [items]="items"
+                        [loading]="loading"
+                        [error]="error"
+                        [isSearching]="isSearching"
+                        [currentDirectory]="currentPath"
+                        (itemClick)="onItemClick($event)"
+                        (favoriteAdd)="addToFavorites($event)"
+                        (itemCopy)="onCopyItem($event)"
+                        (itemPaste)="onPasteItem($event)"
+                        (itemRename)="onRenameItem($event)"
+                        (itemDelete)="onDeleteItem($event)"
+                    >
+                    </app-tile-view>
+
+                    <app-column-view
+                        *ngIf="viewMode === 'column'"
+                        [items]="items"
+                        [loading]="loading"
+                        [error]="error"
+                        [isSearching]="isSearching"
+                        [currentPath]="currentPath"
+                        (itemClick)="onItemClick($event)"
+                        (favoriteAdd)="addToFavorites($event)"
+                        (itemCopy)="onCopyItem($event)"
+                        (itemPaste)="onPasteItem($event)"
+                        (itemRename)="onRenameItem($event)"
+                        (itemDelete)="onDeleteItem($event)"
+                    >
+                    </app-column-view>
+
+                    <app-carousel-view
+                        *ngIf="viewMode === 'carousel'"
+                        [items]="items"
+                        [loading]="loading"
+                        [error]="error"
+                        [isSearching]="isSearching"
+                        [currentDirectory]="currentPath"
+                        (itemClick)="onItemClick($event)"
+                        (favoriteAdd)="addToFavorites($event)"
+                        (itemCopy)="onCopyItem($event)"
+                        (itemPaste)="onPasteItem($event)"
+                        (itemRename)="onRenameItem($event)"
+                        (itemDelete)="onDeleteItem($event)"
+                    >
+                    </app-carousel-view>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

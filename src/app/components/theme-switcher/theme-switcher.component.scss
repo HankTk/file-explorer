@@ -1,0 +1,71 @@
+.theme-switcher {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 1rem;
+}
+
+.theme-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    padding-left: 1rem;
+
+    mat-form-field {
+        width: 100%;
+    }
+
+    ::ng-deep {
+        .mat-mdc-select-panel {
+            background-color: var(--background-color);
+        }
+
+        .mat-mdc-option {
+            color: var(--text-color);
+            background-color: var(--background-color);
+
+            &:hover {
+                background-color: var(--hover-color);
+            }
+
+            &.mdc-list-item--selected {
+                background-color: var(--primary-color);
+                color: var(--primary-contrast-color);
+            }
+
+            &.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+                background-color: var(--primary-color);
+            }
+
+            .mat-mdc-select-value-text {
+                color: var(--text-color);
+            }
+
+            .mat-mdc-select-arrow {
+                color: var(--text-color);
+            }
+        }
+        .mat-mdc-slide-toggle {
+            .mdc-form-field {
+                color: var(--text-color);
+            }
+        }
+    }
+}
+
+:host.dark-theme {
+    ::ng-deep {
+        .mat-radio-button {
+            .mat-radio-label-content {
+                color: white !important;
+            }
+        }
+
+        .mat-mdc-slide-toggle {
+            .mdc-form-field {
+                color: white;
+            }
+        }
+    }
+}

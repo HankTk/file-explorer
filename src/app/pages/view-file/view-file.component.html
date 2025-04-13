@@ -1,0 +1,25 @@
+<div class="file-view">
+    <div class="loading" *ngIf="loading">
+        <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <div class="error-message" *ngIf="error">
+        <mat-icon class="error-icon">error</mat-icon>
+        <span>{{ error | translate }}</span>
+    </div>
+
+    <app-list-view
+        *ngIf="!loading && !error && isListView"
+        [items]="items"
+        [isSearching]="isSearching"
+        (itemClick)="itemClick.emit($event)">
+    </app-list-view>
+
+    <div class="file-list" *ngIf="!loading && !error && !isListView">
+        <app-list-view
+            [items]="items"
+            [isSearching]="isSearching"
+            (itemClick)="itemClick.emit($event)">
+        </app-list-view>
+    </div>
+</div>

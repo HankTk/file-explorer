@@ -1,0 +1,23 @@
+<div class="tile-view" (contextmenu)="onEmptyAreaContextMenu($event)">
+    <div class="tile-grid">
+        <app-tile-item
+            *ngFor="let item of items; trackBy: trackByFn"
+            [item]="item"
+            [currentDirectory]="currentDirectory"
+            [isSelected]="contextMenuService.selectedItem === item"
+            (click)="onItemClick(item)"
+            (dragstart)="onDragStart($event, item)"
+            (contextmenu)="onContextMenu($event, item)">
+        </app-tile-item>
+    </div>
+    <!--
+    <div class="loading-overlay" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    -->
+    <div class="error-message" *ngIf="error">
+        {{ error | translate }}
+    </div>
+</div>
+
+<app-context-menu [currentDirectory]="currentDirectory"></app-context-menu>

@@ -3,12 +3,30 @@ root = true
 
 [*]
 charset = utf-8
-indent_style = space
-indent_size = 2
+end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.ts]
+[*.{js,ts}]
+indent_style = space
+indent_size = 4
+max_line_length = 100
+
+[*.html]
+indent_style = space
+indent_size = 2
+max_line_length = 120
+html.format.wrapAttributes = force
+html.format.wrapLineLength = 0
+html.format.preserveNewLines = false
+html.format.endWithNewline = true
+html.format.extraLiners = ""
+html.format.indentInnerHtml = true
+html.format.wrapAttributesIndentSize = 2
+html.format.maxPreserveNewLines = 1
+html.format.bracketSameLine = true
+
+[*.{js,jsx,ts,tsx,json,css,scss}]
 quote_type = single
 ij_typescript_use_double_quotes = false
 

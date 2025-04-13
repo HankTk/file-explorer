@@ -1,0 +1,43 @@
+<div class="column-view-container" (contextmenu)="onEmptyAreaContextMenu($event)">
+  <div class="columns">
+    <div
+      *ngFor="let column of columns; let i = index"
+      class="column"
+      [style.width.px]="columnWidths[i]">
+      <div class="column-header">
+        <span class="path">{{ columnPaths[i] }}</span>
+      </div>
+      <div class="column-content">
+        <div
+          *ngFor="let item of column"
+          class="item"
+          [class.selected]="item.path === selectedPath"
+          (click)="onItemSelected(item, i)"
+          (contextmenu)="onContextMenu($event, item)"
+          draggable="true"
+          (dragstart)="onDragStart($event, item)"
+          (dragend)="onDragEnd($event)">
+          <div class="item-icon">
+            <mat-icon
+              [class]="
+                item.isDirectory
+                  ? 'folder'
+                  : fileExplorerService.getFileIcon(item.name).class
+              "
+              class="file-icon">
+              {{
+                item.isDirectory
+                  ? 'folder'
+                  : fileExplorerService.getFileIcon(item.name).name
+              }}
+            </mat-icon>
+          </div>
+          <div class="item-name">{{ item.name }}</div>
+        </div>
+      </div>
+      <div class="resize-handle" (mousedown)="startResize($event, i)"></div>
+    </div>
+  </div>
+</div>
+
+<app-context-menu [currentDirectory]="currentPath"></app-context-menu>

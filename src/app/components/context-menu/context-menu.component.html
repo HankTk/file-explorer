@@ -1,0 +1,63 @@
+<!-- Context menu trigger -->
+<div
+    class="context-menu-trigger"
+    [style.left.px]="contextMenuService.contextMenuPosition.x"
+    [style.top.px]="contextMenuService.contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu"
+    (click)="$event.stopPropagation()"
+    (contextmenu)="$event.preventDefault()">
+    <div class="trigger-area"></div>
+</div>
+
+<!-- Context menu -->
+<mat-menu #contextMenu="matMenu" class="context-menu" [overlapTrigger]="false">
+    <!-- Add to favorites -->
+    <button
+        mat-menu-item
+        [disabled]="!contextMenuService.selectedItem?.isDirectory"
+        (click)="addToFavorites(); $event.stopPropagation()"
+        (mousedown)="$event.stopPropagation()">
+        <mat-icon>star</mat-icon>
+        <span>{{ 'fileExplorer.addToFavorites' | translate }}</span>
+    </button>
+
+    <!-- Copy -->
+    <button
+        mat-menu-item
+        [disabled]="!contextMenuService.selectedItem"
+        (click)="copyItem(); $event.stopPropagation()"
+        (mousedown)="$event.stopPropagation()">
+        <mat-icon>content_copy</mat-icon>
+        <span>{{ 'fileExplorer.copy' | translate }}</span>
+    </button>
+
+    <!-- Paste -->
+    <button
+        mat-menu-item
+        [disabled]="!contextMenuService.clipboardItem"
+        (click)="pasteItem(); $event.stopPropagation()"
+        (mousedown)="$event.stopPropagation()">
+        <mat-icon>content_paste</mat-icon>
+        <span>{{ 'fileExplorer.paste' | translate }}</span>
+    </button>
+
+    <!-- Rename -->
+    <button
+        mat-menu-item
+        [disabled]="!contextMenuService.selectedItem"
+        (click)="renameItem(); $event.stopPropagation()"
+        (mousedown)="$event.stopPropagation()">
+        <mat-icon>edit</mat-icon>
+        <span>{{ 'fileExplorer.rename' | translate }}</span>
+    </button>
+
+    <!-- Delete -->
+    <button
+        mat-menu-item
+        [disabled]="!contextMenuService.selectedItem"
+        (click)="deleteItem(); $event.stopPropagation()"
+        (mousedown)="$event.stopPropagation()">
+        <mat-icon>delete</mat-icon>
+        <span>{{ 'fileExplorer.delete' | translate }}</span>
+    </button>
+</mat-menu>

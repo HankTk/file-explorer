@@ -1,0 +1,36 @@
+<div
+    class="favorite-view"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)">
+    <div class="favorite-header">
+        <h3>{{ 'fileExplorer.favorites' | translate }}</h3>
+    </div>
+    <div class="favorite-list" [class.drag-over]="isDragOver">
+        <mat-nav-list>
+            <mat-list-item
+                *ngFor="let item of favorites"
+                (click)="onFavoriteClick(item)"
+                (contextmenu)="onContextMenu($event, item)">
+                <mat-icon matListItemIcon>star</mat-icon>
+                <span matListItemTitle>{{ item.name }}</span>
+            </mat-list-item>
+        </mat-nav-list>
+        <div class="drop-message" *ngIf="isDragOver">
+            <mat-icon>add_circle</mat-icon>
+            <span>{{ 'fileExplorer.dropToAddFavorite' | translate }}</span>
+        </div>
+    </div>
+</div>
+
+<!-- custom context menu -->
+<div
+    class="context-menu"
+    *ngIf="showContextMenu"
+    [style.left.px]="contextMenuX"
+    [style.top.px]="contextMenuY">
+    <button (click)="onRemoveFavorite()">
+        <mat-icon>delete</mat-icon>
+        <span>{{ 'fileExplorer.removeFromFavorites' | translate }}</span>
+    </button>
+</div>

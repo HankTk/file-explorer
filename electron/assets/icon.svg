@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="512" height="512" rx="128" fill="#2196F3"/>
+    
+    <!-- File Explorer Window -->
+    <rect x="96" y="96" width="320" height="320" rx="16" fill="white"/>
+    
+    <!-- Window Title Bar -->
+    <rect x="96" y="96" width="320" height="48" rx="16" fill="#E3F2FD"/>
+    
+    <!-- Window Controls -->
+    <circle cx="128" cy="120" r="8" fill="#FF5252"/>
+    <circle cx="160" cy="120" r="8" fill="#FFC107"/>
+    <circle cx="192" cy="120" r="8" fill="#4CAF50"/>
+    
+    <!-- Sidebar -->
+    <rect x="96" y="144" width="80" height="272" fill="#F5F5F5"/>
+    
+    <!-- Folder Icons -->
+    <rect x="112" y="168" width="48" height="40" rx="4" fill="#90CAF9"/>
+    <rect x="112" y="224" width="48" height="40" rx="4" fill="#90CAF9"/>
+    <rect x="112" y="280" width="48" height="40" rx="4" fill="#90CAF9"/>
+    
+    <!-- File List -->
+    <rect x="192" y="168" width="208" height="24" rx="4" fill="#E3F2FD"/>
+    <rect x="192" y="200" width="208" height="24" rx="4" fill="#E3F2FD"/>
+    <rect x="192" y="232" width="208" height="24" rx="4" fill="#E3F2FD"/>
+    <rect x="192" y="264" width="208" height="24" rx="4" fill="#E3F2FD"/>
+    <rect x="192" y="296" width="208" height="24" rx="4" fill="#E3F2FD"/>
+    <rect x="192" y="328" width="208" height="24" rx="4" fill="#E3F2FD"/>
+    <rect x="192" y="360" width="208" height="24" rx="4" fill="#E3F2FD"/>
+</svg> 

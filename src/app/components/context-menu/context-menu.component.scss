@@ -1,0 +1,41 @@
+/* Context menu component styles */
+
+.context-menu-trigger {
+    position: fixed;
+    z-index: 1000;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+
+    .trigger-area {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: transparent;
+        pointer-events: auto;
+    }
+}
+
+.context-menu {
+    z-index: 1001;
+
+    .mat-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 160px;
+        pointer-events: auto;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        &:active {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+    }
+}

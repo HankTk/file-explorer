@@ -1,0 +1,13 @@
+<div class="device-view">
+    <div class="device-header">
+        <h3>{{ 'fileExplorer.devices' | translate }}</h3>
+    </div>
+    <div class="device-list">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let device of devices" (click)="onDeviceClick(device)">
+                <mat-icon matListItemIcon>devices</mat-icon>
+                <span matListItemTitle>{{ device.name | translate }}</span>
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+</div>

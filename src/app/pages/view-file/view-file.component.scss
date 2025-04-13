@@ -1,0 +1,40 @@
+.file-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow: hidden;
+    padding: 1rem;
+
+    .loading {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--background-color);
+    }
+
+    .error-message {
+        margin: 0 0 1rem;
+        padding: 16px;
+        background-color: var(--error-background);
+        color: var(--error-text);
+        border: 1px solid var(--error-text);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .error-icon {
+            color: var(--error-text);
+        }
+    }
+
+    .file-list {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+}

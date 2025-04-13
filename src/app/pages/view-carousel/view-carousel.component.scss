@@ -1,0 +1,266 @@
+.carousel-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.finder-style {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 10px;
+    padding: 10px;
+}
+
+.finder-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px !important;
+    height: 150px !important;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.finder-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.finder-item mat-icon {
+    font-size: 48px;
+    margin-bottom: 5px;
+}
+
+.finder-item span {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.carousel-container {
+    flex: 1;
+    overflow: hidden;
+    height: 180px;
+    padding: 10px;
+}
+
+.virtual-scroll-viewport {
+    height: 100%;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.carousel-item {
+    display: inline-block;
+    width: 120px;
+    padding: 8px;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-background);
+    transition: all 0.2s ease;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.item-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-preview-container {
+    width: 100px;
+    height: 60px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.item-name {
+    white-space: nowrap;
+    text-align: center;
+    font-size: 12px;
+    width: 100px;
+    height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 4px;
+}
+
+.carousel-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-color);
+}
+
+.item-content {
+}
+
+.carousel-item-view {
+    display: grid;
+    grid-template-rows: 1fr 180px;
+    overflow: hidden;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 16px;
+    overflow-y: auto;
+    height: calc(100vh - 165px);
+}
+
+.directory-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 16px;
+
+    .large-icon {
+        font-size: 400px;
+        width: 500px;
+        height: 400px;
+        color: #4a90e2; // Folder color
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+}
+
+.file-details {
+    text-align: center;
+
+    h2 {
+        margin: 0 0 16px 0;
+    }
+}
+
+.no-selection {
+    text-align: center;
+    color: #666;
+}
+
+.file-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .image-preview {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        padding: 0;
+
+        .preview-image {
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 95%;
+            height: calc(100vh - 400px);
+            top: 0;
+            padding: 16px 0;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 1;
+        }
+    }
+
+    .non-image-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+
+        .large-icon {
+            font-size: 120px;
+            width: 120px;
+            height: 120px;
+            color: #8e8e93; // Default file color
+        }
+    }
+}
+
+// Add file icon color classes
+.file-icon {
+    &.folder {
+        color: #4a90e2;
+    }
+    &.image {
+        color: #ff6b6b;
+    }
+    &.document {
+        color: #4a90e2;
+    }
+    &.video {
+        color: #ff6b6b;
+    }
+    &.audio {
+        color: #ff6b6b;
+    }
+    &.archive {
+        color: #ffb340;
+    }
+    &.code {
+        color: #4a90e2;
+    }
+    &.pdf {
+        color: #ff6b6b;
+    }
+    &.spreadsheet {
+        color: #4a90e2;
+    }
+    &.presentation {
+        color: #4a90e2;
+    }
+    &.database {
+        color: #4a90e2;
+    }
+    &.font {
+        color: #4a90e2;
+    }
+    &.executable {
+        color: #4a90e2;
+    }
+    &.default {
+        color: #8e8e93;
+    }
+}

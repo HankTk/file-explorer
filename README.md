@@ -590,3 +590,7 @@ In each step, data follows this path:
 ![Tile View](./documents/2025-04-13_11-55-06.png)
 ![Column View](./documents/2025-04-13_11-55-25.png)
 ![Carousel View](./documents/2025-04-13_15-15-38.png)
+![Drag&Drop](./documents/2025-04-13_16-38-50.png)
+![Favorite](./documents/2025-04-13_16-39-05.png)
+![Context Menu](./documents/2025-04-13_16-39-30.png)
+

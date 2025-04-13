@@ -584,3 +584,9 @@ In each step, data follows this path:
 5. IPC Handler → Main Process
 6. Main Process → File System
 7. Results return through the reverse path
+
+## Screenshots
+![List View](./documents/2025-04-13_11-54-46.png)
+![Tile View](./documents/2025-04-13_11-55-06.png)
+![Column View](./documents/2025-04-13_11-55-25.png)
+![Carousel View](./documents/2025-04-13_15-15-38.png)

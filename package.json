@@ -75,6 +75,18 @@
         "directories": {
             "output": "release"
         },
+        "mac": {
+            "target": [
+                "dmg",
+                "zip"
+            ],
+            "category": "public.app-category.utilities",
+            "identity": null,
+            "icon": "electron/assets/icon.icns"
+        },
+        "asar": {
+            "smartUnpack": true
+        },
         "files": [
             "dist/**/*",
             "electron/**/*"
@@ -85,16 +97,9 @@
                 "to": "dist"
             }
         ],
-        "mac": {
-            "target": [
-                "dmg",
-                "zip"
-            ],
-            "category": "public.app-category.utilities",
-            "identity": null,
-            "icon": "electron/assets/icon.icns"
-        },
-        "asar": false
+        "asarUnpack": [
+            "node_modules/sharp/**/*"
+        ]
     },
     "prettier": {
         "bracketSpacing": true,

@@ -89,7 +89,15 @@ function setupIpcHandlers() {
   });
 
   ipcMain.handle('read-image-file', async (event, filePath, highQuality) => {
-    return await fileService.readImageFile(filePath, highQuality);
+    try {
+      console.log('Received request to read image:', filePath); // Debug log
+      const result = await fileService.readImageFile(filePath, highQuality);
+      console.log('Successfully read image, size:', result.length); // Debug log
+      return result;
+    } catch (error) {
+      console.error('Error in read-image-file handler:', error);
+      throw error;
+    }
   });
 
   ipcMain.handle('read-raw-file', async (event, filePath) => {

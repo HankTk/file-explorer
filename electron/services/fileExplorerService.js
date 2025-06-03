@@ -5,6 +5,17 @@ const { FILE_SYSTEM } = require('../constant/constants');
 
 class FileExplorerService {
 
+  // Add helper method for path resolution
+  resolvePath(filePath) {
+    // If the path is already absolute, return it
+    if (path.isAbsolute(filePath)) {
+      return filePath;
+    }
+    
+    // For relative paths, resolve against the current working directory
+    return path.resolve(process.cwd(), filePath);
+  }
+
   async readDirectory(dirPath) {
     try {
       const items = await fs.readdir(dirPath, { withFileTypes: true });
@@ -268,16 +279,51 @@ class FileExplorerService {
 
   async readImageFile(filePath, highQuality = false) {
     try {
-      // In high quality mode, return the file contents as is
-      if (highQuality) {
-        return await fs.readFile(filePath);
+      // Normalize the path to handle different path separators
+      const normalizedPath = path.normalize(filePath);
+      
+      // In production, we need to handle paths differently
+      let absolutePath;
+      if (process.env.NODE_ENV === 'development') {
+        absolutePath = path.isAbsolute(normalizedPath) ? normalizedPath : path.resolve(normalizedPath);
+      } else {
+        // In production, ensure we're using the full path
+        absolutePath = path.isAbsolute(normalizedPath) ? normalizedPath : path.resolve(process.cwd(), normalizedPath);
+      }
+      
+      console.log('Attempting to read image from:', absolutePath); // Debug log
+
+      // Verify the file exists and is accessible
+      try {
+        await fs.access(absolutePath);
+      } catch (error) {
+        console.error('File access error:', error);
+        throw new Error(`Cannot access file: ${absolutePath}`);
       }
 
-      const sharp = require('sharp');
-      const metadata = await sharp(filePath).metadata();
+      // In high quality mode, return the file contents as is
+      if (highQuality) {
+        const buffer = await fs.readFile(absolutePath);
+        console.log('Successfully read high quality image, size:', buffer.length); // Debug log
+        return buffer;
+      }
+
+      let sharp;
+      try {
+        sharp = require('sharp');
+      } catch (error) {
+        console.error('Error loading sharp module:', error);
+        // If sharp fails to load, return the original image
+        console.log('Falling back to original image');
+        return await fs.readFile(absolutePath);
+      }
       
-      // Use sharp only for thumbnail generation
-      let processor = sharp(filePath)
+      // Use sharp for thumbnail generation
+      let processor = sharp(absolutePath, {
+        failOnError: false, // Don't fail on corrupt images
+        sequentialRead: true, // Better for large files
+        limitInputPixels: false // Disable pixel limit for large images
+      })
         .rotate() // Auto-rotate
         .resize(120, 120, {
           fit: 'inside',
@@ -293,6 +339,7 @@ class FileExplorerService {
         });
 
       const buffer = await processor.toBuffer();
+      console.log('Successfully processed image, size:', buffer.length); // Debug log
 
       if (!buffer || buffer.length === 0) {
         throw new Error('Failed to process image');
@@ -301,6 +348,13 @@ class FileExplorerService {
       return buffer;
     } catch (error) {
       console.error('Error reading image file:', error);
+      if (error.code === 'ENOENT') {
+        throw new Error(`File not found: ${filePath}`);
+      } else if (error.code === 'EACCES') {
+        throw new Error(`Permission denied: ${filePath}`);
+      } else if (error.code === 'EPERM') {
+        throw new Error(`Operation not permitted: ${filePath}`);
+      }
       throw error;
     }
   }
